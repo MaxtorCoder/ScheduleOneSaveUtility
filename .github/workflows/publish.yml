@@ -58,10 +58,8 @@ jobs:
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
           website: 'https://github.com/${{ github.repository }}'
-          repo: 'schedule-i.thunderstore.io'
-          categories: |
-            mono
-            mods
+          # repo: 'schedule-i.thunderstore.io'
+          categories: mods
 
       - name: Output URL
         run: echo "Published Thunderstore package to ${{ steps.publish.outputs.url }}"
