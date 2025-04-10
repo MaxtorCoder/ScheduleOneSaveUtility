@@ -61,11 +61,11 @@ jobs:
         shell: bash
 
       - name: Publish to Thunderstore
-        uses: dhkatz/thunderstore-publish@v1
+        uses: dhkatz/thunderstore-publish@v1.0.1
         with:
           token: ${{ secrets.TS_TOKEN }}
-          communities: 'Schedule I'  # Replace with the relevant Thunderstore community
-          namespace: 'MaxtorCoder'  # Replace with your Thunderstore namespace (username or team name)
+          communities: 'Schedule I'
+          namespace: 'MaxtorCoder'
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
@@ -73,3 +73,6 @@ jobs:
             Mono
             Mods
           file: '${{ github.event.repository.name }}-v${{ env.VERSION }}.zip'
+
+      - name: Output URL
+        run: echo "Published Thunderstore package to ${{ steps.publish.outputs.url }}"
