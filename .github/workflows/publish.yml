@@ -52,7 +52,7 @@ jobs:
         uses: dhkatz/thunderstore-publish@v1.0.1
         with:
           token: ${{ secrets.TS_TOKEN }}
-          communities: 'Schedule I'
+          communities: 'schedule-i'
           namespace: 'MaxtorCoder'
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
