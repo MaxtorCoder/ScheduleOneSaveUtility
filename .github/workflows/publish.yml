@@ -80,7 +80,7 @@ jobs:
           version: '${{ env.VERSION }}'
           # Ugly ass fucking workaround, but fuck it we ball
           file: '/home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
-          categories: mono
+          categories: mods
           deps: |
             "LavaGang-MelonLoader@0.7.0"
 
