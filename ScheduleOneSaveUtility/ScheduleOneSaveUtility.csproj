@@ -502,7 +502,7 @@
 		<Compile Include="UI\UIUtils.cs" />
 	</ItemGroup>
 	
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Debug'">
 	  <Exec Command="tasklist | findstr /I &quot;Schedule.*I.exe&quot; &gt;nul &amp;&amp; taskkill /F /IM &quot;Schedule I.exe&quot;&#xA;COPY &quot;$(TargetPath)&quot; &quot;D:\Games\Steam\steamapps\common\Schedule I\Mods\&quot;&#xA;START &quot;&quot; &quot;D:\Games\Steam\steamapps\common\Schedule I\Schedule I.exe&quot;" />
 	</Target>
 </Project>
