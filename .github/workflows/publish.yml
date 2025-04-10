@@ -76,10 +76,10 @@ jobs:
 
       - name: Publish to Thunderstore
         id: publish-thunderstore
-        uses: MaxtorCoder/upload-thunderstore-package@v4.4
+        uses: MaxtorCoder/thunderstore-publish@v1.0.2
         with:
           token: ${{ secrets.TS_TOKEN }}
-          community: 'schedule-i'
+          communities: 'schedule-i'
           namespace: 'MaxtorCoder'
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
