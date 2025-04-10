@@ -60,7 +60,6 @@ jobs:
           cp manifest.json ThunderstorePackage/
           cp README.md ThunderstorePackage/
           cp icon.png ThunderstorePackage/
-          cp -r images ThunderstorePackage/
           cp ./publish/${REPO_NAME}.dll ThunderstorePackage/
           cd ThunderstorePackage
           zip -r ${PACKAGE_NAME}-v${VERSION}.zip .
@@ -75,7 +74,7 @@ jobs:
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
-          path: '${{ env.PACKAGE_NAME }}_v${{ env.VERSION }}.zip'
+          # path: '${{ env.PACKAGE_NAME }}_v${{ env.VERSION }}.zip'
           categories: mods
           deps: |
             "LavaGang-MelonLoader@0.7.0"
