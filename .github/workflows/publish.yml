@@ -68,12 +68,6 @@ jobs:
           readlink -f ../${PACKAGE_NAME}-v${VERSION}.zip
         shell: bash
 
-#      - name: Create GitHub Release
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        run: |
-#          gh release create v${{ env.VERSION }} "${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip" --title "Release ${{ env.VERSION }}" --notes "Release ${{ env.VERSION }}"
-
       - name: Publish to Thunderstore
         id: publish-thunderstore
         uses: MaxtorCoder/thunderstore-publish@v1.0.2
@@ -84,8 +78,9 @@ jobs:
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
+          # Ugly ass fucking workaround, but fuck it we ball
           file: '/home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
-          categories: 'mono,mods'
+          categories: mono
           deps: |
             "LavaGang-MelonLoader@0.7.0"
 
