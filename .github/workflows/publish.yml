@@ -76,9 +76,8 @@ jobs:
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
           path: '${{ env.PACKAGE_NAME }}_v${{ env.VERSION }}.zip'
-          categories: |
-            mono
-            mods
+          deps: |
+            "LavaGang-MelonLoader@0.7.0"
 
       - name: Output URL
         run: echo "Published Thunderstore package to ${{ steps.publish.outputs.url }}"
