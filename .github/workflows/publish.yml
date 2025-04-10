@@ -76,7 +76,7 @@ jobs:
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
           path: '${{ env.PACKAGE_NAME }}_v${{ env.VERSION }}.zip'
-          categories: mono
+          categories: mods
           deps: |
             "LavaGang-MelonLoader@0.7.0"
 
