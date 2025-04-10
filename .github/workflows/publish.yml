@@ -58,8 +58,8 @@ jobs:
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
           categories: |
-            Mono
-            Mods
+            mono
+            mods
 
       - name: Output URL
         run: echo "Published Thunderstore package to ${{ steps.publish.outputs.url }}"
