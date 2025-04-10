@@ -56,13 +56,13 @@ jobs:
           VERSION="${{ env.VERSION }}"
           PACKAGE_NAME="${REPO_NAME//ScheduleOne/}"  # Remove 'ScheduleOne' from REPO_NAME
           echo "PACKAGE_NAME=${PACKAGE_NAME}" >> $GITHUB_ENV
-          mkdir -p ThunderstorePackage/mods
+          mkdir -p ThunderstorePackage/
           cp manifest.json ThunderstorePackage/
           cp README.md ThunderstorePackage/
           cp icon.png ThunderstorePackage/
           cp ./publish/${REPO_NAME}.dll ThunderstorePackage/
           cd ThunderstorePackage
-          zip -r ${PACKAGE_NAME}-v${VERSION}.zip .
+          zip -r ../${PACKAGE_NAME}-v${VERSION}.zip .
         shell: bash
 
       - name: Create GitHub Release
