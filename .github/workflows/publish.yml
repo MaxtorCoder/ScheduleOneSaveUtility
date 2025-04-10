@@ -65,7 +65,7 @@ jobs:
           cd ThunderstorePackage
           
           zip -r ../${PACKAGE_NAME}-v${VERSION}.zip .
-          mv ../${PACKAGE_NAME}-v${VERSION}.zip ./publish
+          readlink -f ../${PACKAGE_NAME}-v${VERSION}.zip
         shell: bash
 
 #      - name: Create GitHub Release
