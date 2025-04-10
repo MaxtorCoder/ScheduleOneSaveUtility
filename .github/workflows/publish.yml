@@ -68,7 +68,7 @@ jobs:
           cd ThunderstorePackage
           
           # Create the ZIP file
-          ZIP_FILE="${PACKAGE_NAME}-v${VERSION}.zip"
+          ZIP_FILE="../${PACKAGE_NAME}-v${VERSION}.zip"
           zip -r "$ZIP_FILE" .
           
           # Resolve the absolute path of the ZIP file
@@ -95,7 +95,7 @@ jobs:
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
-          file: '${{ env.ZIP_FILE_DIR }}//${{ github.event.repository.name }}/${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
+          file: '${{ env.ZIP_FILE_DIR }}/${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
           categories: 'mono,mods'
           deps: |
             "LavaGang-MelonLoader@0.7.0"
