@@ -54,7 +54,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create v${{ env.version }} ./publish/* --title "Release ${{ env.version }}" --notes "Release ${{ env.version }}"
+          gh release create v${{ env.VERSION }} ./publish/* --title "Release ${{ env.VERSION }}" --notes "Release ${{ env.VERSION }}"
 
       - name: Prepare Thunderstore Package
         run: |
