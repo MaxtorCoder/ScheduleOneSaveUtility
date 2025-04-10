@@ -13,7 +13,7 @@
 		<PackageId>ScheduleOneSaveUtility</PackageId>
 	</PropertyGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
 		<Reference Include="AeLa.EasyFeedback.Demo">
 			<HintPath>D:\Games\Steam\steamapps\common\Schedule I\Schedule I_Data\Managed\AeLa.EasyFeedback.Demo.dll</HintPath>
 		</Reference>
@@ -461,7 +461,33 @@
 		<Reference Include="0Harmony">
 			<HintPath>D:\Games\Steam\steamapps\common\Schedule I\MelonLoader\net35\0Harmony.dll</HintPath>
 		</Reference>
-
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<Reference Include="Assembly-CSharp">
+			<HintPath>..\libs\Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.TextMeshPro">
+			<HintPath>..\libs\Unity.TextMeshPro.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>..\libs\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>..\libs\UnityEngine.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.JSONSerializeModule">
+			<HintPath>..\libs\UnityEngine.JSONSerializeModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>..\libs\UnityEngine.UI.dll</HintPath>
+		</Reference>
+		<Reference Include="MelonLoader">
+			<HintPath>..\libs\MelonLoader.dll</HintPath>
+		</Reference>
+		<Reference Include="0Harmony">
+			<HintPath>..\libs\0Harmony.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<PropertyGroup>

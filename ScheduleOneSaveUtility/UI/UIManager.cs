@@ -3,10 +3,7 @@
 using ScheduleOne.Persistence;
 using ScheduleOne.Persistence.Datas;
 
-using TMPro;
-
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ScheduleOneSaveUtility.UI
 {
