@@ -68,7 +68,7 @@ jobs:
           cd ThunderstorePackage
           
           # Create the ZIP file
-          ZIP_FILE="../${PACKAGE_NAME}-v${VERSION}.zip"
+          ZIP_FILE="${PACKAGE_NAME}-v${VERSION}.zip"
           zip -r "$ZIP_FILE" .
           
           # Resolve the absolute path of the ZIP file
