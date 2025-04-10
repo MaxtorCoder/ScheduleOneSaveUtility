@@ -56,13 +56,26 @@ jobs:
           VERSION="${{ env.VERSION }}"
           PACKAGE_NAME="${REPO_NAME//ScheduleOne/}"  # Remove 'ScheduleOne' from REPO_NAME
           echo "PACKAGE_NAME=${PACKAGE_NAME}" >> $GITHUB_ENV
+          
+          # Create the ThunderstorePackage directory and copy necessary files
           mkdir -p ThunderstorePackage/
           cp manifest.json ThunderstorePackage/
           cp README.md ThunderstorePackage/
           cp icon.png ThunderstorePackage/
           cp ./publish/${REPO_NAME}.dll ThunderstorePackage/
+          
+          # Navigate to the ThunderstorePackage directory
           cd ThunderstorePackage
-          zip -r ../${PACKAGE_NAME}-v${VERSION}.zip .
+          
+          # Create the ZIP file
+          ZIP_FILE="../${PACKAGE_NAME}-v${VERSION}.zip"
+          zip -r "$ZIP_FILE" .
+          
+          # Resolve the absolute path of the ZIP file
+          ZIP_FILE_DIR=$(dirname "$(readlink -f "$ZIP_FILE")")
+          
+          # Set the ZIP file directory as a GitHub Actions environment variable
+          echo "ZIP_FILE_DIR=${ZIP_FILE_DIR}" >> $GITHUB_ENV
         shell: bash
 
 #      - name: Create GitHub Release
@@ -72,6 +85,7 @@ jobs:
 #          gh release create v${{ env.VERSION }} "${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip" --title "Release ${{ env.VERSION }}" --notes "Release ${{ env.VERSION }}"
 
       - name: Publish to Thunderstore
+        id: publish-thunderstore
         uses: dhkatz/thunderstore-publish@v1.0.1
         with:
           token: ${{ secrets.TS_TOKEN }}
@@ -80,10 +94,10 @@ jobs:
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
-          file: '${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
+          file: '${{ env.ZIP_FILE_DIR }}//${{ github.event.repository.name }}/${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
           categories: 'mono,mods'
           deps: |
             "LavaGang-MelonLoader@0.7.0"
 
       - name: Output URL
-        run: echo "Published Thunderstore package to ${{ steps.publish.outputs.url }}"
+        run: echo "Published Thunderstore package to ${{ steps.publish-thunderstore.outputs.url }}"
