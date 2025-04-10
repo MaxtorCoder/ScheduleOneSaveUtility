@@ -16,20 +16,6 @@ jobs:
         id: get_version
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'  # Adjust to your project's .NET version
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --no-restore --configuration Release
-
-      - name: Publish
-        run: dotnet publish --no-build --configuration Release --output ./publish
-
       - name: Generate manifest.json
         run: |
           REPO_NAME="${{ github.event.repository.name }}"
@@ -48,6 +34,20 @@ jobs:
           EOF
         shell: bash
 
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'  # Adjust to your project's .NET version
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Publish
+        run: dotnet publish --no-build --configuration Release --output ./publish
+
       - name: Publish to Thunderstore
         uses: dhkatz/thunderstore-publish@v1.0.1
         with:
@@ -57,6 +57,8 @@ jobs:
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
+          website: 'https://github.com/${{ github.repository }}'
+          repo: 'schedule-i.thunderstore.io'
           categories: |
             mono
             mods
