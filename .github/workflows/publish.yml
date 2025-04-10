@@ -48,19 +48,21 @@ jobs:
           EOF
         shell: bash
 
-      - name: Prepare Thunderstore Package
-        run: |
-          mkdir -p ThunderstorePackage
-          cp manifest.json ThunderstorePackage/
-          cp README.md ThunderstorePackage/
-          cp icon.png ThunderstorePackage/
-          cp -r images ThunderstorePackage/
-          cp ./publish/*.dll ThunderstorePackage/
-          cd ThunderstorePackage
-          zip -r ../${{ github.event.repository.name }}-v${{ env.VERSION }}.zip .
-        shell: bash
+#      - name: Prepare Thunderstore Package
+#        id: prepare-package
+#        run: |
+#          mkdir -p ThunderstorePackage
+#          cp manifest.json ThunderstorePackage/
+#          cp README.md ThunderstorePackage/
+#          cp icon.png ThunderstorePackage/
+#          cp -r images ThunderstorePackage/
+#          cp ./publish/*.dll ThunderstorePackage/
+#          cd ThunderstorePackage
+#          zip -r ../${{ github.event.repository.name }}-v${{ env.VERSION }}.zip .
+#        shell: bash
 
       - name: Publish to Thunderstore
+
         uses: dhkatz/thunderstore-publish@v1.0.1
         with:
           token: ${{ secrets.TS_TOKEN }}
@@ -72,7 +74,7 @@ jobs:
           categories: |
             Mono
             Mods
-          file: '../${{ github.event.repository.name }}-v${{ env.VERSION }}.zip'
+#          file: '../${{ github.event.repository.name }}-v${{ env.VERSION }}.zip'
 
       - name: Output URL
         run: echo "Published Thunderstore package to ${{ steps.publish.outputs.url }}"
