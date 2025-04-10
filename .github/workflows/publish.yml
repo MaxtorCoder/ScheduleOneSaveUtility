@@ -64,8 +64,7 @@ jobs:
           cp ./publish/${REPO_NAME}.dll ThunderstorePackage/
           cd ThunderstorePackage
           
-          zip -r ../${PACKAGE_NAME}-v${VERSION}.zip .
-          mv ../${PACKAGE_NAME}-v${VERSION}.zip /dist
+          zip -r ./publish/${PACKAGE_NAME}-v${VERSION}.zip .
         shell: bash
 
 #      - name: Create GitHub Release
@@ -84,7 +83,7 @@ jobs:
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
-          file: '${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
+          file: './publish/${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
           categories: 'mono,mods'
           deps: |
             "LavaGang-MelonLoader@0.7.0"
