@@ -80,8 +80,8 @@ jobs:
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
-          path: '${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
-          categories: mods
+          file: '${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
+          categories: 'mono,mods'
           deps: |
             "LavaGang-MelonLoader@0.7.0"
 
