@@ -84,7 +84,7 @@ jobs:
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
-          file: '/home/runner/${{ github.event.repository.name }}/${{ github.event.repository.name }}/{${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
+          file: '/home/runner/${{ github.event.repository.name }}/${{ github.event.repository.name }}/${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip'
           categories: 'mono,mods'
           deps: |
             "LavaGang-MelonLoader@0.7.0"
