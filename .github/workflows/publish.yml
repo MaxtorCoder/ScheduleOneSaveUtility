@@ -1,0 +1,76 @@
+name: Publish .NET Project
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on tags starting with 'v' (e.g., v1.0.0)
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Extract version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'  # Adjust to your project's .NET version
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Publish
+        run: dotnet publish --no-build --configuration Release --output ./publish
+
+      - name: Generate manifest.json
+        run: |
+          REPO_NAME="${{ github.event.repository.name }}"
+          REPO_DESCRIPTION="${{ github.event.repository.description }}"
+          VERSION="${{ env.VERSION }}"
+          # Remove 'ScheduleOne' from REPO_NAME
+          REPO_NAME="${REPO_NAME//ScheduleOne/}"
+          cat <<EOF > manifest.json
+          {
+            "name": "${REPO_NAME// /_}",
+            "version_number": "${VERSION}",
+            "website_url": "https://github.com/${{ github.repository }}",
+            "description": "${REPO_DESCRIPTION}",
+            "dependencies": []
+          }
+          EOF
+        shell: bash
+
+      - name: Prepare Thunderstore Package
+        run: |
+          mkdir -p ThunderstorePackage
+          cp manifest.json ThunderstorePackage/
+          cp README.md ThunderstorePackage/
+          cp icon.png ThunderstorePackage/
+          cp -r images ThunderstorePackage/
+          cp ./publish/*.dll ThunderstorePackage/
+          cd ThunderstorePackage
+          zip -r ../${{ github.event.repository.name }}-v${{ env.VERSION }}.zip .
+        shell: bash
+
+      - name: Publish to Thunderstore
+        uses: dhkatz/thunderstore-publish@v1
+        with:
+          token: ${{ secrets.TS_TOKEN }}
+          communities: 'Schedule I'  # Replace with the relevant Thunderstore community
+          namespace: 'MaxtorCoder'  # Replace with your Thunderstore namespace (username or team name)
+          name: 'SaveUtility'
+          description: '${{ github.event.repository.description }}'
+          version: '${{ env.VERSION }}'
+          categories: |
+            Mono
+            Mods
+          file: '${{ github.event.repository.name }}-v${{ env.VERSION }}.zip'
+        shell: bash
