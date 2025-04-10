@@ -50,12 +50,6 @@ jobs:
       - name: Publish
         run: dotnet publish --no-build --configuration Release --output ./publish
 
-      - name: Create GitHub Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create v${{ env.VERSION }} ./publish/* --title "Release ${{ env.VERSION }}" --notes "Release ${{ env.VERSION }}"
-
       - name: Prepare Thunderstore Package
         run: |
           REPO_NAME="${{ github.event.repository.name }}"
@@ -70,6 +64,12 @@ jobs:
           cd ThunderstorePackage
           zip -r ${PACKAGE_NAME}-v${VERSION}.zip .
         shell: bash
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v${{ env.VERSION }} "${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip" --title "Release ${{ env.VERSION }}" --notes "Release ${{ env.VERSION }}"
 
       - name: Publish to Thunderstore
         uses: dhkatz/thunderstore-publish@v1.0.1
