@@ -64,7 +64,8 @@ jobs:
           cp ./publish/${REPO_NAME}.dll ThunderstorePackage/
           cd ThunderstorePackage
           
-          zip -r ./publish/${PACKAGE_NAME}-v${VERSION}.zip .
+          zip -r ../${PACKAGE_NAME}-v${VERSION}.zip .
+          mv ../${PACKAGE_NAME}-v${VERSION}.zip ./publish/
         shell: bash
 
 #      - name: Create GitHub Release
