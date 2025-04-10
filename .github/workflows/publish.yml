@@ -65,11 +65,11 @@ jobs:
           zip -r ../${PACKAGE_NAME}-v${VERSION}.zip .
         shell: bash
 
-      - name: Create GitHub Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create v${{ env.VERSION }} "${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip" --title "Release ${{ env.VERSION }}" --notes "Release ${{ env.VERSION }}"
+#      - name: Create GitHub Release
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: |
+#          gh release create v${{ env.VERSION }} "${{ env.PACKAGE_NAME }}-v${{ env.VERSION }}.zip" --title "Release ${{ env.VERSION }}" --notes "Release ${{ env.VERSION }}"
 
       - name: Publish to Thunderstore
         uses: dhkatz/thunderstore-publish@v1.0.1
