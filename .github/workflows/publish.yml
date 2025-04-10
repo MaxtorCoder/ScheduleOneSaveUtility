@@ -76,6 +76,7 @@ jobs:
           
           # Set the ZIP file directory as a GitHub Actions environment variable
           echo "ZIP_FILE_DIR=${ZIP_FILE_DIR}" >> $GITHUB_ENV
+          echo "${ZIP_FILE_DIR} ${ZIP_FILE}"
         shell: bash
 
 #      - name: Create GitHub Release
