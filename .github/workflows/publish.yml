@@ -29,7 +29,9 @@ jobs:
             "version_number": "${VERSION}",
             "website_url": "https://github.com/${{ github.repository }}",
             "description": "${REPO_DESCRIPTION}",
-            "dependencies": []
+            "dependencies": [
+              "LavaGang-MelonLoader-0.7.0"
+            ]
           }
           EOF
         shell: bash
@@ -48,6 +50,22 @@ jobs:
       - name: Publish
         run: dotnet publish --no-build --configuration Release --output ./publish
 
+      - name: Prepare Thunderstore Package
+        run: |
+          REPO_NAME="${{ github.event.repository.name }}"
+          VERSION="${{ env.VERSION }}"
+          PACKAGE_NAME="${REPO_NAME//ScheduleOne/}"  # Remove 'ScheduleOne' from REPO_NAME
+          echo "PACKAGE_NAME=${PACKAGE_NAME}" >> $GITHUB_ENV
+          mkdir -p ThunderstorePackage/mods
+          cp manifest.json ThunderstorePackage/
+          cp README.md ThunderstorePackage/
+          cp icon.png ThunderstorePackage/
+          cp -r images ThunderstorePackage/
+          cp ./publish/${REPO_NAME}.dll ThunderstorePackage/
+          cd ThunderstorePackage
+          zip -r ${PACKAGE_NAME}-v${VERSION}.zip .
+        shell: bash
+
       - name: Publish to Thunderstore
         uses: dhkatz/thunderstore-publish@v1.0.1
         with:
@@ -57,9 +75,10 @@ jobs:
           name: 'SaveUtility'
           description: '${{ github.event.repository.description }}'
           version: '${{ env.VERSION }}'
-          website: 'https://github.com/${{ github.repository }}'
-          # repo: 'schedule-i.thunderstore.io'
-          categories: mods
+          path: '${{ env.PACKAGE_NAME }}_v${{ env.VERSION }}.zip'
+          categories: |
+            mono
+            mods
 
       - name: Output URL
         run: echo "Published Thunderstore package to ${{ steps.publish.outputs.url }}"
