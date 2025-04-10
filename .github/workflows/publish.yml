@@ -73,4 +73,3 @@ jobs:
             Mono
             Mods
           file: '${{ github.event.repository.name }}-v${{ env.VERSION }}.zip'
-        shell: bash
